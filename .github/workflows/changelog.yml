@@ -10,13 +10,13 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      
-      - name: Fetch changes
-        run: git fetch origin --prune --tags --unshallow
-
+        with:
+          fetch-depth: 0
+    
       - 
         name: Install git-chglog
         uses: craicoverflow/install-git-chglog@v0.3.1
+
       -
         name: Generate a CHANGELOG
         run: git-chglog -o CHANGELOG.md
