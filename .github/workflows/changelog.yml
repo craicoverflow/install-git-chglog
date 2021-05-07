@@ -1,8 +1,8 @@
-name: Run
+name: Build
 on: 
   push:
     branches:
-      - develop
+      - main
       - refs/tags/*
 jobs:
   package:
@@ -11,7 +11,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
         with:
-          fetch-depth: 1
+          fetch-depth: 0
     
       - 
         name: Install git-chglog
@@ -19,10 +19,10 @@ jobs:
 
       -
         name: Generate a CHANGELOG
-        run: git-chglog
+        run: git-chglog -o CHANGELOG.md
 
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          branch: develop
+          branch: main
           file_pattern: CHANGELOG.md
           commit_message: 'chore: update CHANGELOG'
