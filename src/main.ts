@@ -6,7 +6,6 @@ import {getGitChglog} from './installer';
 async function run(): Promise<void> {
   try {
     const version = core.getInput('version') || 'latest';
-    const args = core.getInput('args');
     const workdir = core.getInput('workdir') || '.';
     const gitChglog = await getGitChglog(version);
     core.info(`✅ git-chglog installed successfully`);
@@ -20,8 +19,6 @@ async function run(): Promise<void> {
       process.chdir(workdir);
     }
 
-    core.info('🏃 Running git-chglog...');
-    await exec.exec(`${gitChglog} ${args}`);
   } catch (error) {
     core.setFailed(error.message);
   }

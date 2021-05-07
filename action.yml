@@ -1,28 +1,14 @@
 name: 'git-chglog action'
 description: 'GitHub Action for git-chglog. Anytime, anywhere, Write your CHANGELOG.'
-author: 'crazy-max'
+author: 'craicoverflow'
 branding:
   color: 'green'
   icon: 'package'
 
 inputs:
-  tag_query:
-    description: 'specify a range of tags to include in the CHANGELOG'
-    required: false
   version:
     description: 'git-chglog version'
     default: 'latest'
-    required: false
-  config:
-    description: 'specifies a different configuration file to pick up'
-    default: '.chglog/config.yml'
-    required: false
-  output:
-    description: 'output path and filename for the changelogs. If not specified, output to stdout'
-    required: false
-  workdir:
-    description: 'Working directory (below repository root)'
-    default: '.'
     required: false
 
 runs:
