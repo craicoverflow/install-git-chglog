@@ -10,9 +10,7 @@ Basic:
 
 ```yaml
 steps:
-- uses: actions/install-git-chglog@v0
-  with:
-    version: 'v0.14.0' # The git-chglog version to use
+- uses: actions/install-git-chglog@v1
 - run: git-chglog -o CHANGELOG.md
 ```
 
