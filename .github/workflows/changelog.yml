@@ -2,25 +2,25 @@ name: Build
 on: 
   push:
     branches:
-      - dev
+      - main
 jobs:
   package:
     runs-on: ubuntu-latest
     steps:
-      - 
-        name: Install git-chglog
-        uses: craicoverflow/install-git-chglog@v0.3.1
       - name: Checkout code
         uses: actions/checkout@v2
         with:
-          fetch-depth: 1
+          fetch-depth: 0
+
+      - 
+        name: Install git-chglog
+        uses: craicoverflow/install-git-chglog@v0.3.1
       -
         name: Generate a CHANGELOG
-        run: |
-          alias git-tag='git tag'
-          git-chglog -o CHANGELOG.md
+        run: git-chglog -o CHANGELOG.md
+
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          branch: dev
+          branch: main
           file_pattern: CHANGELOG.md
           commit_message: 'chore: update CHANGELOG'
