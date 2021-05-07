@@ -21,7 +21,7 @@ export async function getGitChglog(version: string): Promise<string> {
   let extPath: string;
   extPath = await tc.extractTar(downloadPath);
 
-  const cachePath: string = await tc.cacheDir(extPath, 'git-chglog-action', release.tag_name.replace(/^v/, ''));
+  const cachePath: string = await tc.cacheDir(extPath, 'install-git-chglog', release.tag_name.replace(/^v/, ''));
   core.debug(`Cached to ${cachePath}`);
 
   const exePath: string = 'git-chglog';

@@ -12,7 +12,7 @@ export const baseUrl = 'https://github.com/git-chglog/git-chglog';
 export const getRelease = async (version: string): Promise<GitHubRelease | null> => {
   const resolvedVersion: string = version;
   const url: string = `${baseUrl}/releases/${resolvedVersion}`;
-  const http: httpm.HttpClient = new httpm.HttpClient('git-chglog-action');
+  const http: httpm.HttpClient = new httpm.HttpClient('install-git-chglog');
   return (await http.getJson<GitHubRelease>(url)).result;
 };
 
@@ -31,7 +31,7 @@ interface GitHubTag {
 }
 
 const getAllTags = async (): Promise<Array<string>> => {
-  const http: httpm.HttpClient = new httpm.HttpClient('git-chglog-action');
+  const http: httpm.HttpClient = new httpm.HttpClient('install-git-chglog');
   const url: string = `https://goreleaser.com/static/releases.json`;
   const getTags = http.getJson<Array<GitHubTag>>(url);
 

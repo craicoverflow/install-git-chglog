@@ -44,7 +44,7 @@ exports.baseUrl = 'https://github.com/git-chglog/git-chglog';
 const getRelease = (version) => __awaiter(void 0, void 0, void 0, function* () {
     const resolvedVersion = version;
     const url = `${exports.baseUrl}/releases/${resolvedVersion}`;
-    const http = new httpm.HttpClient('git-chglog-action');
+    const http = new httpm.HttpClient('install-git-chglog');
     return (yield http.getJson(url)).result;
 });
 exports.getRelease = getRelease;
@@ -57,7 +57,7 @@ const resolveVersion = (version) => __awaiter(void 0, void 0, void 0, function* 
     return semver.maxSatisfying(allTags, version);
 });
 const getAllTags = () => __awaiter(void 0, void 0, void 0, function* () {
-    const http = new httpm.HttpClient('git-chglog-action');
+    const http = new httpm.HttpClient('install-git-chglog');
     const url = `https://goreleaser.com/static/releases.json`;
     const getTags = http.getJson(url);
     return getTags.then(response => {
@@ -125,7 +125,7 @@ function getGitChglog(version) {
         core.info('📦 Extracting git-chglog...');
         let extPath;
         extPath = yield tc.extractTar(downloadPath);
-        const cachePath = yield tc.cacheDir(extPath, 'git-chglog-action', release.tag_name.replace(/^v/, ''));
+        const cachePath = yield tc.cacheDir(extPath, 'install-git-chglog', release.tag_name.replace(/^v/, ''));
         core.debug(`Cached to ${cachePath}`);
         const exePath = 'git-chglog';
         core.debug(`Exe path is ${exePath}`);
@@ -181,14 +181,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const core = __importStar(__webpack_require__(186));
-const exec = __importStar(__webpack_require__(514));
 const path_1 = __webpack_require__(622);
 const installer_1 = __webpack_require__(480);
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const version = core.getInput('version') || 'latest';
-            const args = core.getInput('args');
             const workdir = core.getInput('workdir') || '.';
             const gitChglog = yield installer_1.getGitChglog(version);
             core.info(`✅ git-chglog installed successfully`);
@@ -199,8 +197,6 @@ function run() {
                 core.info(`📂 Using ${workdir} as working directory...`);
                 process.chdir(workdir);
             }
-            core.info('🏃 Running git-chglog...');
-            yield exec.exec(`${gitChglog} ${args}`);
         }
         catch (error) {
             core.setFailed(error.message);

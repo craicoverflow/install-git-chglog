@@ -18,7 +18,6 @@ async function run(): Promise<void> {
       core.info(`📂 Using ${workdir} as working directory...`);
       process.chdir(workdir);
     }
-
   } catch (error) {
     core.setFailed(error.message);
   }
