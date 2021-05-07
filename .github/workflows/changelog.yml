@@ -1,4 +1,4 @@
-name: Generate a CHANGELOG
+name: Build
 on: 
   push:
     branches:
@@ -13,11 +13,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
         with:
-          fetch-depth: 0
+          fetch-depth: 1
       -
         name: Generate a CHANGELOG
         run: |
+          alias git-tag='git tag'
           git-chglog -o CHANGELOG.md
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
           branch: dev
+          file_pattern: CHANGELOG.md
+          commit_message: 'chore: update CHANGELOG'
