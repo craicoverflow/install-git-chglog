@@ -1,5 +1,5 @@
 {
-  "name": "git-chglog-action",
+  "name": "install-git-chglog",
   "description": "GitHub Action for git-chglog",
   "version": "0.1.0",
   "main": "lib/main.js",

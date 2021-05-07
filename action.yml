@@ -1,4 +1,4 @@
-name: 'git-chglog action'
+name: 'install-git-chglog'
 description: 'GitHub Action for git-chglog. Anytime, anywhere, Write your CHANGELOG.'
 author: 'craicoverflow'
 branding:
