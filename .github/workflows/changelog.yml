@@ -16,7 +16,7 @@ jobs:
     
       - 
         name: Install git-chglog
-        uses: craicoverflow/install-git-chglog@v0.3.1
+        uses: craicoverflow/install-git-chglog@v1
 
       -
         name: Generate a CHANGELOG
