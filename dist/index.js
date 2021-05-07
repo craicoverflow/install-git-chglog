@@ -110,6 +110,7 @@ const util = __importStar(__webpack_require__(669));
 const github = __importStar(__webpack_require__(928));
 const core = __importStar(__webpack_require__(186));
 const tc = __importStar(__webpack_require__(784));
+const path = __importStar(__webpack_require__(622));
 function getGitChglog(version) {
     return __awaiter(this, void 0, void 0, function* () {
         const release = yield github.getRelease(version);
@@ -127,7 +128,7 @@ function getGitChglog(version) {
         extPath = yield tc.extractTar(downloadPath);
         const cachePath = yield tc.cacheDir(extPath, 'install-git-chglog', release.tag_name.replace(/^v/, ''));
         core.debug(`Cached to ${cachePath}`);
-        const exePath = 'git-chglog';
+        const exePath = path.join(cachePath, 'git-chglog');
         core.debug(`Exe path is ${exePath}`);
         return exePath;
     });
@@ -187,8 +188,9 @@ function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const version = core.getInput('version') || 'latest';
-            const workdir = core.getInput('workdir') || '.';
+            const workdir = '.';
             const gitChglog = yield installer_1.getGitChglog(version);
+            core.debug(gitChglog);
             core.info(`✅ git-chglog installed successfully`);
             const gitChglogDir = path_1.dirname(gitChglog);
             core.addPath(gitChglogDir);

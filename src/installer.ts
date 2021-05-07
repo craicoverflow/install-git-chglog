@@ -2,6 +2,7 @@ import * as util from 'util';
 import * as github from './github';
 import * as core from '@actions/core';
 import * as tc from '@actions/tool-cache';
+import * as path from 'path';
 
 export async function getGitChglog(version: string): Promise<string> {
   const release: github.GitHubRelease | null = await github.getRelease(version);
@@ -15,6 +16,7 @@ export async function getGitChglog(version: string): Promise<string> {
 
   core.info(`⬇️ Downloading ${downloadUrl}...`);
   const downloadPath: string = await tc.downloadTool(downloadUrl);
+
   core.debug(`Downloaded to ${downloadPath}`);
 
   core.info('📦 Extracting git-chglog...');
@@ -24,7 +26,7 @@ export async function getGitChglog(version: string): Promise<string> {
   const cachePath: string = await tc.cacheDir(extPath, 'install-git-chglog', release.tag_name.replace(/^v/, ''));
   core.debug(`Cached to ${cachePath}`);
 
-  const exePath: string = 'git-chglog';
+  const exePath: string = path.join(cachePath, 'git-chglog');
   core.debug(`Exe path is ${exePath}`);
 
   return exePath;
