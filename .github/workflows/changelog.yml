@@ -2,7 +2,7 @@ name: Build
 on: 
   push:
     branches:
-      - main
+      - improve-description
       - refs/tags/*
 jobs:
   generate_changelog:
