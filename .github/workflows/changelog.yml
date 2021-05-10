@@ -3,7 +3,9 @@ on:
   push:
     branches:
       - main
-      - refs/tags/*
+    tags:
+      - '*'
+
 jobs:
   generate_changelog:
     runs-on: ubuntu-latest
